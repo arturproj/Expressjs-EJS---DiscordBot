@@ -39,11 +39,15 @@ const start = (db) => {
       case "join":
         const joinObj = require("./controller/join");
         const join = new joinObj(db);
-        
+
         if (MID !== null) {
           join.start(msg).then((res) => {
-            bot.users.cache.get(msg.author.id).send(res);
+            bot.users.cache
+              .get(res.organizer.to.id)
+              .send(res.organizer.responce);
+            bot.users.cache.get(msg.author.id).send(res.responce);
             bot.users.cache.get(msg.author.id).send(`!match ${MID[0]}`);
+            console.log(res);
           });
         }
         break;
@@ -61,13 +65,27 @@ const start = (db) => {
         const leaveObj = require("./controller/leave");
         const leave = new leaveObj(db);
         if (MID !== null) {
-          leave.start(msg).then();
+          leave
+            .start(msg)
+            .then((res) => bot.users.cache.get(res.to.id).send(res.responce));
         }
         break;
       case "update":
         const updateObj = require("./controller/update");
         const update = new updateObj(db);
         update.start(msg);
+        break;
+      case "delete":
+        const deleteObj = require("./controller/delete");
+        const delet = new deleteObj(db);
+        delet.start(msg).then((res) => {
+          // bot.users.cache
+          //   .get(res.users.organizer.id)
+          //   .send(res.responce.organizer)
+          res.users.players.forEach((element) => {
+            bot.users.cache.get(element.id).send(res.responce.players);
+          });
+        });
         break;
       case "match":
         const matchObj = require("./controller/match");

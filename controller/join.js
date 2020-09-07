@@ -28,19 +28,32 @@ class join {
       let join = await matchModel.joinMatch(MID[0], player);
       console.log("join!exe", join);
       let title = `Welcome to ${join.match.name}`;
-      let description = "";
-      if( join.responce === false ){
+      let description,or_description = "";
+      if (join.responce === false) {
         description = "You are already registered for the match";
-      }else{
+        or_description = `@${msg.author.username}  doesn't know he's already registered?`;
+      } else {
         description = "welcome to match";
-      }     
-      let color = 'invite';
-      return embed.sms(
-        { name: "\u200B", value: "\u200B" },
-        title,
-        description,
-        color
-      );
+        or_description = `@${msg.author.username} registered in the match with success`;
+      }
+      let color = "invite";
+      return {
+        responce: embed.sms(
+          { name: "\u200B", value: "\u200B" },
+          title,
+          description,
+          color
+        ),
+        organizer: {
+          to: join.match.organizer,
+          responce: embed.sms(
+            { name: "\u200B", value: "\u200B" },
+            `Notification - ${join.match.name} ${join.match.MID}`,
+            or_description,
+            color
+          ),
+        },
+      };
     }
   }
 }

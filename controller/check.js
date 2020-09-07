@@ -1,5 +1,4 @@
 const { User, Logger } = require("../models");
-const Discord = require("discord.js");
 const embed = require("./core/embed");
 /**
  *  MongoClient.connect.client.db

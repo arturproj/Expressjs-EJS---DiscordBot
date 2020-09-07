@@ -75,12 +75,13 @@ class update {
           msg,
           title,
           description,
-          ["Tutorial update match","View match"],
+          ["Tutorial update match", "View match"],
           0,
           "next"
         );
       } else if (query !== null) {
         title = "UPDATE : " + match.name;
+
         if (
           user.account === "organizer" &&
           user.username === match.organizer.username
@@ -88,12 +89,13 @@ class update {
           let indexQ = query[0],
             valueQ = query[1];
           console.log({ MID: MID }, { [indexQ]: valueQ });
+          let m_update = await matchModel.updateMatch(
+            { MID: MID },
+            { [indexQ]: valueQ }
+          );
           responce = [
             {
-              name: await matchModel.updateMatch(
-                { MID: MID },
-                { [indexQ]: valueQ }
-              ),
+              name: m_update.responce,
               value: "\u200B",
             },
           ];

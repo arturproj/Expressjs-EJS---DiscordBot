@@ -45,6 +45,7 @@ class Matches {
     });
   }
   async updateMatch(query, values, exck = false) {
+    var resp = { responce: "Match updated successfully", status: true };
     let valid = Object.keys(values);
     if (
       (valid.includes("MID") ||
@@ -53,29 +54,34 @@ class Matches {
         valid.includes("players")) &&
       exck === false
     ) {
-      return "Forbidden to update selected parameter";
+      resp = {
+        responce: "Forbidden to update selected parameter",
+        status: false,
+      };
     }
     if ("level" in values && (1 > values.level || values.level > 10)) {
-      return "Invalid match level";
+      resp = { responce: "Invalid match level", status: false };
     }
     if (
       "gender" in values &&
       ["mixed", "male", "female"].includes(values.gender) === false
     ) {
-      return "Invalid match gender";
+      resp = { responce: "Invalid match gender", status: false };
     }
 
     if ("date" in values) {
       let date = new Date(values.date);
       console.log("date", date.toJSON());
       if (date.toJSON() === null) {
-        return "Invalid match date";
+        resp = { responce: "Invalid match date", status: false };
       }
     }
-    values = { $set: values };
-    let res = this.db.updateOne(query, values);
+    if (resp.status === true) {
+      values = { $set: values };
+      let res = this.db.updateOne(query, values);
+    }
     //return res;
-    return "Match updated successfully";
+    return resp;
   }
 
   async joinMatch(MID, values, query = { MID: MID }) {
