@@ -10,7 +10,7 @@ Either side can call off a game which warns the other team.
 npm install
 ##
 ### 2° step 
-insert in the file ./env:(line 8) file token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX
+insert in the file ./env:(line 8) -> token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX
 ##
 # Functionality :
 - Create matches
