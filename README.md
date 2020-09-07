@@ -1,11 +1,18 @@
 # Expressjs--DiscordBot
- match manager
+match manager
 
 A Bot on the Discord app that allows rugby teams to submit matches and others to register. Each match will have a division ranging from 1 to 10 (level), an address (city), a gender (Male, Female or mixed) and a date.
 When a match is accepted the organizer receives a message.
 Either side can call off a game which warns the other team.
 
-## Functionality :
+# Get Start:
+### 1° step 
+npm install
+##
+### 2° step 
+insert in the file ./env:(line 8) file token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX
+##
+# Functionality :
 - Create matches
 - See all matches created
 - See a specific match
@@ -19,7 +26,8 @@ Either side can call off a game which warns the other team.
 
 ##
 ### Singup on Bot
-#### !singup
+#### !signup <account> : !signup organizer OR !signup player OR !signup viewer
+
 ##
 ### Create matches
 #### !create <NAME_MATCH> : !create CUP 2050
@@ -32,10 +40,10 @@ Either side can call off a game which warns the other team.
 ##
 ### Update the match
 #### !update  <MATCH_ID (MID)> param=(YOUR TEXT)
-- update NAME :   !update X0X0X name=Example Name
-- update DATE :   !update X0X0X date=date=01-01-2050 14:20
-- update CITY :   !update X0X0X city=Paris
-- update LEVEL :  !update X0X0X level=10
+- update NAME : !update X0X0X name=Example Name
+- update DATE : !update X0X0X date=date=01-01-2050 14:20
+- update CITY : !update X0X0X city=Paris
+- update LEVEL : !update X0X0X level=10
 - update GANDER : !update X0X0X gender=mixed
 ##
 ### Register for the match
