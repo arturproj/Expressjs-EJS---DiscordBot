@@ -27,7 +27,9 @@ insert in the file ./env:(line 8) -> token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXX
 ##
 ### Singup on Bot
 #### !signup <account> : !signup organizer OR !signup player OR !signup viewer
-
+- organizer : create, update, delete, join, leave, view and invite to matches
+- player : join, leave, view and invite to matches
+- viewer : join, leave, view and invite to matches
 ##
 ### Create matches
 #### !create <NAME_MATCH> : !create CUP 2050
