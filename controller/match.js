@@ -35,10 +35,10 @@ class match {
 
     // console.log("user", user);
     // console.log("match", match);
+    let title = "Match MID : " + MID;
+    let description = "";
     try {
-      
-      let title = "Match MID : " + MID;
-      let description = "";
+
       color = "warning";
       if (MID === null) {
         let matches = await matchModel.getAll();
