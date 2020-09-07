@@ -18,6 +18,9 @@ Either side can call off a game which warns the other team.
 - Leave the match
 
 ##
+### Singup on Bot
+#### !singup
+##
 ### Create matches
 #### !create <NAME_MATCH> : !create CUP 2050
 ##
