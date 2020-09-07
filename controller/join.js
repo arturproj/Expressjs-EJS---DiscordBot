@@ -30,7 +30,8 @@ class join {
       let join = await matchModel.joinMatch(MID[0], player);
       console.log("join!exe", join);
       let title = `Welcome to ${join.match.name}`;
-      let description,or_description = "";
+      let description,
+        or_description = "";
       if (join.responce === false) {
         description = "You are already registered for the match";
         or_description = `@${msg.author.username}  doesn't know he's already registered?`;

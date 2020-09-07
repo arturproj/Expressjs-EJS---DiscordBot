@@ -22,7 +22,7 @@ class invited {
     this.db = db;
   }
 
-  async start(bot,msg) {
+  async start(bot, msg) {
     let responce, color;
 
     const userModel = new User(this.db);
@@ -76,7 +76,7 @@ class invited {
           mention.length === 1 ? "r" : "rs"
         } : \n\n`;
         mention.forEach((element) => {
-            if ( element.bot === false) description += `<@${element.id}> \n`;         
+          if (element.bot === false) description += `<@${element.id}> \n`;
         });
         responce = [
           { name: "match id (**MID**)", value: match.MID, inline: true },
@@ -85,30 +85,30 @@ class invited {
         responce = [
           { name: "match id (**MID**)", value: match.MID, inline: true },
         ];
-        msg.reply(embed.sms(responce, title, description, "invite")) ;
+        msg.reply(embed.sms(responce, title, description, "invite"));
         mention.forEach((element) => {
-          description = "You have been invited to join the match. will you come there?";
-            if ( element.bot === false) {
-                return embed.invitation(
-                    match,
-                    responce,
-                    msg,
-                    title,
-                    description,
-                    [
-                      "invite accept",
-                      "invite decline",
-                      //"View match",
-                    ],
-                    0,
-                    "check",
-                    bot,
-                    element.id,
-                    this.db
-                  );
-            }
+          description =
+            "You have been invited to join the match. will you come there?";
+          if (element.bot === false) {
+            return embed.invitation(
+              match,
+              responce,
+              msg,
+              title,
+              description,
+              [
+                "invite accept",
+                "invite decline",
+                //"View match",
+              ],
+              0,
+              "check",
+              bot,
+              element.id,
+              this.db
+            );
+          }
         });
-
       } else if (user === null) {
         responce = {
           name: "Sorry, I don't know your account",

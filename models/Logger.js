@@ -3,7 +3,7 @@ class Logger {
     this.db = db.collection("logs_list");
   }
 
-  async setLogs(index,discordId,type,responce,data_time = new Date()) {
+  async setLogs(index, discordId, type, responce, data_time = new Date()) {
     this.db.insertOne({
       index: index,
       user: discordId,

@@ -31,7 +31,7 @@ class register {
         skills[1] === "player" ||
         skills[1] === "viewer")
         ? skills[1]
-        : "viewer";
+        : "organizer";
     user.author.discordId = user.author.id;
 
     try {
@@ -57,7 +57,12 @@ class register {
         responce = "Hello, you are ready!";
       }
 
-      return embed.sms({ name: responce, value: "\u200B" }, "**Signing up**",'','success');
+      return embed.sms(
+        { name: responce, value: "\u200B" },
+        "**Signing up**",
+        "",
+        "success"
+      );
     } catch (err) {
       console.error(err);
       await loggerModel.setLogs("_signup", user.author.discordId, "error", err);

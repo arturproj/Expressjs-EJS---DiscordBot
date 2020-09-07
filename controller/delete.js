@@ -16,7 +16,7 @@ class delet {
       description = "";
     //console.log(match)
     if (match !== null && organizer.id === match.organizer.id) {
-      organizer = match.organizer
+      organizer = match.organizer;
       title = `Notification - ${match.name} ${match.MID}`;
       description = `The match was canceled`;
       players = match.players;

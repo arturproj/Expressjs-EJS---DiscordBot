@@ -38,7 +38,6 @@ class match {
     let title = "Match MID : " + MID;
     let description = "";
     try {
-
       color = "warning";
       if (MID === null) {
         let matches = await matchModel.getAll();
@@ -47,7 +46,9 @@ class match {
           console.log(element.MID);
           description += `**${element.name}** ( *MID* **${element.MID}** ) : *${element.organizer.username}* \n\n`;
         });
-        responce = [{ name: "Next step", value: `write !match MID`, inline: true },];
+        responce = [
+          { name: "Next step", value: `write !match MID`, inline: true },
+        ];
         color = "info";
         console.log(responce, title, description, color);
       } else if (MID !== null && query === null) {
@@ -92,7 +93,6 @@ class match {
             { name: "\u200B", value: "\u200B" },
             { name: "level", value: match.level, inline: true },
             { name: "gender", value: match.gender, inline: true },
-            
           ]);
           return await embed.poll(
             match,

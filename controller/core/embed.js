@@ -20,7 +20,7 @@ const sms = (
   name = EMBED_BOT_NAME_DEFAULT,
   icon = EMBED_BOT_ICON_DEFAULT
 ) => {
-  console.log("color:", colors[color])
+  console.log("color:", colors[color]);
   return {
     embed: {
       color: "#" + colors[color],
@@ -98,7 +98,6 @@ const poll = async (
       console.log(reaction.emoji.name);
       msg.channel.send(`!match`);
     }
-    
 
     if (reaction.emoji.name === "✅") {
       emojiInfo["responce"] = { name: "ACCEPT", value: "u200B" };
@@ -234,7 +233,7 @@ const invitation = async (
       let update = updateMatch(db, match.MID, user);
       console.log("collect", user);
       update.then((res) => {
-        console.log(res)
+        console.log(res);
         let title = `Join to match ${match.name}`;
         let description = `@**${user.username}** accepted your invitation`;
         let responce = { name: "\u200B", value: "\u200B" };
@@ -242,32 +241,25 @@ const invitation = async (
           bot.users.cache
             .get(res.match.organizer.id)
             .send(sms(responce, title, description, "invite"));
-            bot.users.cache
-            .get(user.id)
-            .send(`!match ${match.MID}`);
-        }else{
+          bot.users.cache.get(user.id).send(`!match ${match.MID}`);
+        } else {
           description = `@**${user.username}** is already registered for the match`;
           bot.users.cache
-          .get(match.organizer.id)
-          .send(sms(responce, title, description, "invite"));
+            .get(match.organizer.id)
+            .send(sms(responce, title, description, "invite"));
         }
-        bot.users.cache
-        .get(user.id)
-        .send(`!match ${match.MID}`);
+        bot.users.cache.get(user.id).send(`!match ${match.MID}`);
       });
-     
     }
 
     if (reaction.emoji.name === "❌" && options.includes("invite decline")) {
-      
-        let title = `Join to match ${match.name}`;
-        let description = `@**${user.username}** refused your invitation`;
-        let responce = { name: "\u200B", value: "\u200B" };
+      let title = `Join to match ${match.name}`;
+      let description = `@**${user.username}** refused your invitation`;
+      let responce = { name: "\u200B", value: "\u200B" };
 
-        bot.users.cache
-          .get(match.organizer.id)
-          .send(sms(responce, title, description, "invite"));
-      
+      bot.users.cache
+        .get(match.organizer.id)
+        .send(sms(responce, title, description, "invite"));
     }
 
     reactionCollector.stop();
