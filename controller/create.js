@@ -22,9 +22,9 @@ class create {
 
   async createMatch(obj) {
     const matchModel = new Match(this.db);
-    let match_name = obj.content.match(/!create [\s\S]*$/g);    
-    match_name = match_name[0].replace("!create ","");
-    console.log("match_name",match_name,obj.content)
+    let match_name = obj.content.match(/!create [\s\S]*$/g);
+    match_name = match_name[0].replace("!create ", "");
+    console.log("match_name", match_name, obj.content);
 
     var iniw = true;
     let genMID;
@@ -36,7 +36,7 @@ class create {
         iniw = false;
       }
     }
-    let date = new Date()
+    let date = new Date();
     return {
       MID: genMID,
       name: match_name,
@@ -45,9 +45,9 @@ class create {
         username: obj.author.username,
         discriminator: obj.author.discriminator,
       },
-      created : `${date.getDate()}/${
+      created: `${date.getDate()}/${
         date.getMonth() + 1
-      }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
+      }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
     };
   }
 
@@ -72,17 +72,20 @@ class create {
             value: match.created,
             inline: true,
           },
-          { name: "organizer", value: match.organizer.username, inline: true },          {
+          { name: "organizer", value: match.organizer.username, inline: true },
+          {
             name: "Next step view match",
             value: `example: !match ${match.MID}`,
           },
         ];
       } else {
         color = "danger";
-        responce = {
-          name: "Sorry, only the ORGANIZER can create new match!",
-          value: `${match.name}-MID(${match.MID}) not created`,
-        };
+        responce = [
+          {
+            name: "Sorry, only the ORGANIZER can create new match!",
+            value: `${match.name}-MID(${match.MID}) not created`,
+          },
+        ];
       }
       return await embed.poll(
         match,
