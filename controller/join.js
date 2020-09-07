@@ -14,6 +14,8 @@ class join {
 
       let result = await userModel.getByDiscordId(msg.author.id);
       if (result === null) {
+        msg.author.discordId = msg.author.id;
+        msg.author.account = "player";
         let res = await userModel.setDiscordUser(msg.author);
       }
       let MID = msg.content.match(/[A-Z|0-9]\w+/g);

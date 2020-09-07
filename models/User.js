@@ -26,8 +26,13 @@ class User {
       username: user.username,
       discordId: user.discordId,
       bot: user.bot,
-      discriminator: user.discriminator,      
-      account: user.account,
+      discriminator: user.discriminator,
+      account:
+        user.account === "organizer" ||
+        user.account === "player" ||
+        user.account === "viewer"
+          ? user.account
+          : "viewer",
       created: new Date(),
       //_v: 0,
     };
