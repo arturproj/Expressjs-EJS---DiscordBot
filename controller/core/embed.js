@@ -128,7 +128,7 @@ const poll = async (
               `example: !update ${match.MID} \`city=Paris\` `,
               `**---** update **date**`,
               `write \`!update ${match.MID} \`**date**\`=<NEW DATE>\` `,
-              `example:!update ${match.MID} \`date=01-01-2050 14:20\` `,
+              `example:!update ${match.MID} \`date=01-01-2050 14:20 PM\` `,
               `**---** update **level**`,
               `write \`!update ${match.MID} \`**level**\`=<number [1-10]>\` `,
               `example: !update ${match.MID} \`level=10\` `,
@@ -240,7 +240,7 @@ const invitation = async (
         let responce = { name: "\u200B", value: "\u200B" };
         if (res.responce !== false) {
           bot.users.cache
-            .get(res.organizer.id)
+            .get(res.match.organizer.id)
             .send(sms(responce, title, description, "invite"));
             bot.users.cache
             .get(user.id)

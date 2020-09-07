@@ -55,9 +55,12 @@ class Matches {
     ) {
       return "Forbidden to update selected parameter";
     }
+    if ('level' in values && (1 > values.level ||  values.level > 10)){
+      return "Invalid match level";
+    }
     values = { $set: values };
     let res = this.db.updateOne(query, values);
-    return res;
+    //return res;
     return "Match updated successfully";
   }
 
