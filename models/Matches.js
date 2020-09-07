@@ -55,8 +55,22 @@ class Matches {
     ) {
       return "Forbidden to update selected parameter";
     }
-    if ('level' in values && (1 > values.level ||  values.level > 10)){
+    if ("level" in values && (1 > values.level || values.level > 10)) {
       return "Invalid match level";
+    }
+    if (
+      "gender" in values &&
+      ["mixed", "male", "female"].includes(values.gender) === false
+    ) {
+      return "Invalid match gender";
+    }
+
+    if ("date" in values) {
+      let date = new Date(values.date);
+      console.log("date", date.toJSON());
+      if (date.toJSON() === null) {
+        return "Invalid match date";
+      }
     }
     values = { $set: values };
     let res = this.db.updateOne(query, values);
@@ -67,19 +81,19 @@ class Matches {
   async joinMatch(MID, values, query = { MID: MID }) {
     console.log(MID, values, query);
     const match = await this.getByMID(MID);
-    console.log("joinMatch", match);    
+    console.log("joinMatch", match);
     const inMatch = (element) => element.id === values.id;
     let index = match.players.findIndex(inMatch);
     let responce = false;
     console.log(index);
-    if( index === -1 ){     
-      match.players.push(values); 
+    if (index === -1) {
+      match.players.push(values);
       values = { $set: { players: match.players } };
       responce = this.db.updateOne(query, values);
-    }   
+    }
     return { responce: responce, match: match };
   }
-  async deleteMatch(MID,query = { MID: MID }) {    
+  async deleteMatch(MID, query = { MID: MID }) {
     this.db.deleteOne(query);
   }
 }

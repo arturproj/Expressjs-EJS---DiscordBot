@@ -128,7 +128,7 @@ const poll = async (
               `example: !update ${match.MID} \`city=Paris\` `,
               `**---** update **date**`,
               `write \`!update ${match.MID} \`**date**\`=<NEW DATE>\` `,
-              `example:!update ${match.MID} \`date=01-01-2050 14:20 PM\` `,
+              `example:!update ${match.MID} \`date=01-01-2050 14:20\` `,
               `**---** update **level**`,
               `write \`!update ${match.MID} \`**level**\`=<number [1-10]>\` `,
               `example: !update ${match.MID} \`level=10\` `,
