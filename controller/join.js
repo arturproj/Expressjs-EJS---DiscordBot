@@ -29,6 +29,11 @@ class join {
       console.log("join!exe", join);
       let title = `Welcome to ${join.match.name}`;
       let description = "";
+      if( join.responce === false ){
+        description = "You are already registered for the match";
+      }else{
+        description = "welcome to match";
+      }     
       let color = 'invite';
       return embed.sms(
         { name: "\u200B", value: "\u200B" },

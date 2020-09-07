@@ -61,21 +61,20 @@ class Matches {
     return "Match updated successfully";
   }
 
-  async regenMatch(match) {    
-    return this.db.insertOne(match)
-  }
-
   async joinMatch(MID, values, query = { MID: MID }) {
     console.log(MID, values, query);
     const match = await this.getByMID(MID);
-    console.log("joinMatch", match);
-    match.players.push(values);
-    //console.log(query);
-    //console.log(match);
-    //console.log(values);
-    values = { $set: { players: match.players } };
-    this.db.updateOne(query, values);
-    return { responce: true, organizer: match.organizer, match: match };
+    console.log("joinMatch", match);    
+    const inMatch = (element) => element.id === values.id;
+    let index = match.players.findIndex(inMatch);
+    let responce = false;
+    console.log(index);
+    if( index === -1 ){     
+      match.players.push(values); 
+      values = { $set: { players: match.players } };
+      responce = this.db.updateOne(query, values);
+    }   
+    return { responce: responce, match: match };
   }
   async deleteMatch(MID,query = { MID: MID }) {    
     this.db.deleteOne(query);

@@ -57,11 +57,11 @@ const start = (db) => {
         const create = new createObj(db);
         create.start(msg);
         break;
-      case "delete":
-        const deleteObj = require("./controller/delete");
-        const delet = new deleteObj(db);
+      case "leave":
+        const leaveObj = require("./controller/leave");
+        const leave = new leaveObj(db);
         if (MID !== null) {
-          delet.start(msg).then();
+          leave.start(msg).then();
         }
         break;
       case "update":

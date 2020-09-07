@@ -234,18 +234,26 @@ const invitation = async (
       let update = updateMatch(db, match.MID, user);
       console.log("collect", user);
       update.then((res) => {
-        if (res.responce === true) {
-          let title = `Join to match ${match.name}`;
-          let description = `@**${user.username}** accepted your invitation`;
-          let responce = { name: "\u200B", value: "\u200B" };
-
+        console.log(res)
+        let title = `Join to match ${match.name}`;
+        let description = `@**${user.username}** accepted your invitation`;
+        let responce = { name: "\u200B", value: "\u200B" };
+        if (res.responce !== false) {
           bot.users.cache
             .get(res.organizer.id)
             .send(sms(responce, title, description, "invite"));
             bot.users.cache
             .get(user.id)
             .send(`!match ${match.MID}`);
+        }else{
+          description = `@**${user.username}** is already registered for the match`;
+          bot.users.cache
+          .get(match.organizer.id)
+          .send(sms(responce, title, description, "invite"));
         }
+        bot.users.cache
+        .get(user.id)
+        .send(`!match ${match.MID}`);
       });
      
     }
