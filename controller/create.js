@@ -78,6 +78,16 @@ class create {
             value: `example: !match ${match.MID}`,
           },
         ];
+        return await embed.poll(
+          match,
+          responce,
+          obj,
+          title,
+          description,
+          ["View match"],
+          0,
+          "accept"
+        );
       } else {
         color = "danger";
         responce = [
@@ -86,18 +96,17 @@ class create {
             value: `${match.name}-MID(${match.MID}) not created`,
           },
         ];
+        return await embed.poll(
+          match,
+          responce,
+          obj,
+          title,
+          description,
+          ["View all match"],
+          0,
+          "accept"
+        );
       }
-      return await embed.poll(
-        match,
-        responce,
-        obj,
-        title,
-        description,
-        ["View match"],
-        0,
-        "accept"
-      );
-      return embed.sms(responce, title, description, color);
     } catch (err) {
       console.error(err);
       await loggerModel.setLogs("_create", obj.author.id, "error", err);
