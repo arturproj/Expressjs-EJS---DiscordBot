@@ -10,7 +10,7 @@ Either side can call off a game which warns the other team.
 npm install
 ##
 ### 2° step 
-insert in the file ./env:(line 8) -> token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX
+insert in the file ./env:(line 8) -> token DiscordBot : TOKEN
 
 1.  PORT=3001
 2.  HOST=localhost
@@ -18,8 +18,8 @@ insert in the file ./env:(line 8) -> token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXX
 4.  DB_NAME=rugby_bot
 5.  DB_PORT=27017
 6.  DB_HOST=localhost
-7. 
-8.  TOKEN=NzUyMjM2MTA3ODE0NjY2MzAw.X1Usdw.kdA6L-C3zjph0sOTUaYB8cybDTU
+7.        
+8.  TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 9. 
 10. CL_SUCCESS=2ecc71
 11. CL_DANGER=e74c3c
