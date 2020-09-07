@@ -18,10 +18,12 @@ const stringGen = require("./core/stringGen");
 class create {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.loggerModel = new Logger(db);
+    this.matchModel = new Match(db);
   }
 
   async createMatch(obj) {
-    const matchModel = new Match(this.db);
     let match_name = obj.content.match(/!create [\s\S]*$/g);
     match_name = match_name[0].replace("!create ", "");
     console.log("match_name", match_name, obj.content);
@@ -30,7 +32,7 @@ class create {
     let genMID;
     while (iniw === true) {
       genMID = stringGen(5);
-      let check = await matchModel.getByMID(genMID);
+      let check = await this.matchModel.getByMID(genMID);
       console.log("genMID", genMID, "check", check);
       if (check === null) {
         iniw = false;
@@ -57,13 +59,10 @@ class create {
     //console.log(match)
     const title = "Match **" + match.name + "**";
     let description = "";
-    const userModel = new User(this.db);
-    const loggerModel = new Logger(this.db);
-    const matchModel = new Match(this.db);
     try {
-      const user = await userModel.getByDiscordId(obj.author.id);
+      const user = await this.userModel.getByDiscordId(obj.author.id);
       if (user !== null && user.account === "organizer") {
-        let res = await matchModel.setMatch(match);
+        let res = await this.matchModel.setMatch(match);
         color = "success";
         responce = [
           { name: "match id (**MID**)", value: match.MID },
@@ -109,7 +108,7 @@ class create {
       }
     } catch (err) {
       console.error(err);
-      await loggerModel.setLogs("_create", obj.author.id, "error", err);
+      await this.loggerModel.setLogs("_create", obj.author.id, "error", err);
       return embed.sms(
         "Sorry, encountered a problem. Try again!",
         title,

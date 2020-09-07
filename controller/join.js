@@ -1,25 +1,23 @@
 const embed = require("./core/embed");
-const { User, Logger, Match } = require("../models");
+const { User, Match } = require("../models");
 
 class join {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.matchModel = new Match(db);
   }
 
   async start(msg) {
     if (msg.author.bot === false) {
-      const userModel = new User(this.db);
-      const loggerModel = new Logger(this.db);
-      const matchModel = new Match(this.db);
-
-      let result = await userModel.getByDiscordId(msg.author.id);
+      let result = await this.userModel.getByDiscordId(msg.author.id);
       if (result === null) {
         msg.author.discordId = msg.author.id;
         msg.author.account = "player";
-        let res = await userModel.setDiscordUser(msg.author);
+        let res = await this.userModel.setDiscordUser(msg.author);
       }
       let MID = msg.content.match(/[A-Z|0-9]\w+/g);
-      const match = await matchModel.getByMID(MID);
+      const match = await this.matchModel.getByMID(MID);
       console.log("join!mid", MID);
       console.log("join!match", match);
       let player = {
@@ -27,7 +25,7 @@ class join {
         username: msg.author.username,
         discriminator: msg.author.discriminator,
       };
-      let join = await matchModel.joinMatch(MID[0], player);
+      let join = await this.matchModel.joinMatch(MID[0], player);
       console.log("join!exe", join);
       let title = `Welcome to ${join.match.name}`;
       let description,

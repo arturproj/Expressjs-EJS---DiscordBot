@@ -11,10 +11,6 @@ const start = (db) => {
 
   const port = PORT || 3000;
 
-  // const Bot = new BOT(db);
-
-  // Bot.start(TOKEN);
-
   const bot = new Discord.Client({
     partials: ["MESSAGE", "CHANNEL", "REACTION"],
   });

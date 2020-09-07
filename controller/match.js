@@ -6,7 +6,7 @@ const { User, Logger, Match } = require("../models");
  *  MongoClient.connect.client.db
  * @param {*} db
  *  Discord:obj
- * @param {*} obj
+ * @param {*} msg
  *  Database users initialization
  * @param {*} userModel
  *  Database logs initialization
@@ -20,18 +20,17 @@ const { User, Logger, Match } = require("../models");
 class match {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.loggerModel = new Logger(db);
+    this.matchModel = new Match(db);
   }
 
   async start(msg) {
     let responce, color;
-
-    const userModel = new User(this.db);
-    const loggerModel = new Logger(this.db);
-    const matchModel = new Match(this.db);
     let MID = msg.content.match(/[A-Z|0-9]\w+/g);
     let query = msg.content.match(/([a-z])\w+=[\s\S]*$/g);
     query = query !== null ? query[0].split("=") : null;
-    const user = await userModel.getByDiscordId(msg.author.id);
+    const user = await this.userModel.getByDiscordId(msg.author.id);
 
     // console.log("user", user);
     // console.log("match", match);
@@ -40,7 +39,7 @@ class match {
     try {
       color = "warning";
       if (MID === null) {
-        let matches = await matchModel.getAll();
+        let matches = await this.matchModel.getAll();
         title = "Matches";
         matches.forEach((element) => {
           console.log(element.MID);
@@ -54,7 +53,7 @@ class match {
       } else if (MID !== null && query === null) {
         console.log(MID);
         MID = MID !== null ? MID[0] : null;
-        let match = await matchModel.getByMID(MID);
+        let match = await this.matchModel.getByMID(MID);
         title = "Match : " + match.name;
         color = "info";
         responce = [
@@ -124,7 +123,7 @@ class match {
       return msg.channel.send(embed.sms(responce, title, description, color));
     } catch (err) {
       console.error(err);
-      await loggerModel.setLogs("_create", msg.author.id, "error", err);
+      await this.loggerModel.setLogs("_create", msg.author.id, "error", err);
       return embed.sms(
         "Sorry, encountered a problem. Try again!",
         title,

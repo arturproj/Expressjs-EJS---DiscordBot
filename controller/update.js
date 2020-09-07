@@ -20,14 +20,13 @@ const { User, Logger, Match } = require("../models");
 class update {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.loggerModel = new Logger(db);
+    this.matchModel = new Match(db);
   }
 
   async start(msg) {
     let responce, color;
-
-    const userModel = new User(this.db);
-    const loggerModel = new Logger(this.db);
-    const matchModel = new Match(this.db);
     let MID = msg.content.match(/[A-Z|0-9]\w+/g);
     let query = msg.content.match(/([a-zA-Z])\w+=[\s\S]*$/g);
     MID = MID[0];
@@ -36,8 +35,8 @@ class update {
     console.log("UPDATE", MID, new Date(query));
 
     try {
-      const user = await userModel.getByDiscordId(msg.author.id);
-      const match = await matchModel.getByMID(MID);
+      const user = await this.userModel.getByDiscordId(msg.author.id);
+      const match = await this.matchModel.getByMID(MID);
       //   console.log("user", user);
       //   console.log("match", match);
       let title = "UPDATE MID : " + MID;
@@ -89,7 +88,7 @@ class update {
           let indexQ = query[0],
             valueQ = query[1];
           console.log({ MID: MID }, { [indexQ]: valueQ });
-          let m_update = await matchModel.updateMatch(
+          let m_update = await this.matchModel.updateMatch(
             { MID: MID },
             { [indexQ]: valueQ }
           );
@@ -127,7 +126,7 @@ class update {
       return embed.sms(responce, title, description, color);
     } catch (err) {
       console.error(err);
-      await loggerModel.setLogs("_create", msg.author.id, "error", err);
+      await this.loggerModel.setLogs("_create", msg.author.id, "error", err);
       return embed.sms(
         "Sorry, encountered a problem. Try again!",
         title,

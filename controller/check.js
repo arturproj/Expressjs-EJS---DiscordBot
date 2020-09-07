@@ -15,17 +15,17 @@ const embed = require("./core/embed");
 class check {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.loggerModel = new Logger(db);
   }
 
   async start(discordId, source) {
     console.log("!ping", discordId);
-    const userModel = new User(this.db);
-    const loggerModel = new Logger(this.db);
     try {
       let responce,
         title = "**!PING state**",
         description = "view the account status",
-        result = await userModel.getByDiscordId(discordId);
+        result = await this.userModel.getByDiscordId(discordId);
       console.log("userModel.getByDiscordId", result);
       if (result !== null) {
         responce = [
@@ -73,7 +73,7 @@ class check {
       };
     } catch (err) {
       console.error(err);
-      await loggerModel.setLogs("_check", discordId, "error", err);
+      await this.loggerModel.setLogs("_check", discordId, "error", err);
       return embed.sms(
         "Sorry, encountered a problem. Try again!",
         title,

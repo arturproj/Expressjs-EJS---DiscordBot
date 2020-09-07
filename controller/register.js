@@ -17,13 +17,12 @@ const { User, Logger } = require("../models");
 class register {
   constructor(db) {
     this.db = db;
+    this.userModel = new User(db);
+    this.loggerModel = new Logger(db);
   }
 
   async start(user) {
     var responce;
-
-    const userModel = new User(this.db);
-    const loggerModel = new Logger(this.db);
     const skills = user.content.split(" ");
     user.author.account =
       skills.length > 1 &&
@@ -35,12 +34,12 @@ class register {
     user.author.discordId = user.author.id;
 
     try {
-      let result = await userModel.getByDiscordId(user.author.discordId);
+      let result = await this.userModel.getByDiscordId(user.author.discordId);
 
       if (result === null) {
-        let res = await userModel.setDiscordUser(user.author);
+        let res = await this.userModel.setDiscordUser(user.author);
         console.log("setDiscordUser", res);
-        // await loggerModel.setLogs(
+        // await this.loggerModel.setLogs(
         //   "_signup",
         //   user.author.discordId,
         //   "done",
@@ -48,7 +47,7 @@ class register {
         // );
         responce = `Welcome ${user.author.username} !`;
       } else {
-        // await loggerModel.setLogs(
+        // await this.loggerModel.setLogs(
         //   "_signup",
         //   user.author.discordId,
         //   "done",
@@ -65,7 +64,7 @@ class register {
       );
     } catch (err) {
       console.error(err);
-      await loggerModel.setLogs("_signup", user.author.discordId, "error", err);
+      await this.loggerModel.setLogs("_signup", user.author.discordId, "error", err);
       return embed.sms(
         "Sorry, encountered a problem. Try again!",
         "**Signing up**"

@@ -11,6 +11,26 @@ npm install
 ##
 ### 2° step 
 insert in the file ./env:(line 8) -> token DiscordBot : TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX
+
+1.  PORT=3001
+2.  HOST=localhost
+3. 
+4.  DB_NAME=rugby_bot
+5.  DB_PORT=27017
+6.  DB_HOST=localhost
+7. 
+8.  TOKEN=NzUyMjM2MTA3ODE0NjY2MzAw.X1Usdw.kdA6L-C3zjph0sOTUaYB8cybDTU
+9. 
+10. CL_SUCCESS=2ecc71
+11. CL_DANGER=e74c3c
+12. CL_WARNING=f39c12
+13. CL_INFO=0099ff
+14. 
+16. EMBED_TITLE_DEFAULT=title
+17. EMBED_MSG_DEFAULT={name:"hello",value:""}
+18. EMBED_DESCR_DEFAULT=description
+19. EMBED_BOT_NAME_DEFAULT=RugbyBot
+20. EMBED_BOT_ICON_DEFAULT=https://pbs.twimg.com/profile_images/1161547839765471232/Jhtsculz.jpg
 ##
 # Functionality :
 - Create matches
